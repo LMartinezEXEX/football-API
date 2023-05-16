@@ -58,7 +58,8 @@ Load the current competition to the database with the _competition code_ provide
 ```
 
 - Error response:
-    - (`Status 400`): This could arise if the competition was already loaded and present in the database, or calling the http://football-data.org resulted in something other than `200 ok`.
+    - `Status 400`: This could arise if the competition was already loaded and present in the database, or calling the http://football-data.org resulted in something other than `200 ok`.
+    - `Status 429`: If more than 10 requests per minute have been made to this endpoint.
 
 3. **GET** _/{league_code}/players_: 
 
