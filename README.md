@@ -195,6 +195,6 @@ $ pytest
 
 - The tests use the "production" database, so any data in it would be wiped out once the tests run.
 
-- The `dateOfBirth` field should be cast to a `Date` object to get more functionality out of it (e.g. filtering players by age).
+- ~~The `dateOfBirth` field should be cast to a `date` object to get more functionality out of it (e.g. filtering players by age).~~
 
 - Revise the coach relationship with the team and the current competition. Could happens that if a team is loaded with the competition A with coach 'Roger', if competition B is loaded with a different coach the database dont gets the update.

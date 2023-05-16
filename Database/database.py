@@ -1,4 +1,5 @@
 import os
+import datetime
 from pony.orm import *
 
 def define_entities(
@@ -28,7 +29,7 @@ def define_entities(
         id          = PrimaryKey(int, auto = True)
         name        = Required(str)
         position    = Optional(str)
-        dateOfBirth = Optional(str)
+        dateOfBirth = Optional(datetime.date)
         nationality = Optional(str)
         team        = Required ('Team')
 
@@ -36,7 +37,7 @@ def define_entities(
     class Coach(db.Entity):
         id          = PrimaryKey(int, auto = True)
         name        = Optional(str)
-        dateOfBirth = Optional(str)
+        dateOfBirth = Optional(datetime.date)
         nationality = Optional(str)
         team        = Required ('Team')
 
