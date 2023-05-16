@@ -2,7 +2,7 @@
 
 This project provides a proprietary API to retrieve football data from the public http://football-data.org API.
 
-## Installation
+## Installation and run
 ```shell
 # Clone repo
 $ git clone https://github.com/LMartinezEXEX/football-API.git && cd football-API
@@ -13,6 +13,14 @@ $ python3 -m venv venv && source venv/bin/activate
 # Install requierements
 $ python -m pip install -r requirements.txt
 ```
+
+Now you can run the app in an Uvicorn server!
+
+```shell
+$ uvicorn main:app
+```
+
+This will start a server on port 8000 (by default, might change if port is currently in use) you could use PostMan to test it or, read a nice looking and _interactive_ documentation powered by [Swagger UI](https://github.com/swagger-api/swagger-ui) in http://127.0.0.1:8000/docs/ (if running locally).
 
 ## Stack
 
@@ -181,6 +189,8 @@ $ pytest
 ```
 
 ## Limitations, known issues and things to enhance
+
+- **IMPORTANT!** Free tier http://football-data.org access token is in plain text. Should be retrieved from `.env` but will requiere users cloning this repo to get their own token.
 
 - The tests use the "production" database, so any data in it would be wiped out once the tests run.
 
