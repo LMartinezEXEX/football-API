@@ -2,7 +2,7 @@
 
 This project provides a proprietary API to retrieve football data from the public http://football-data.org API.
 
-## Installation and run
+## Installation and running of the project
 ```shell
 # Clone repo
 $ git clone https://github.com/LMartinezEXEX/football-API.git && cd football-API
@@ -14,7 +14,19 @@ $ python3 -m venv venv && source venv/bin/activate
 $ python -m pip install -r requirements.txt
 ```
 
-Now you can run the app in an Uvicorn server!
+### Setting free tier access token in environment
+In order to retrieve data from http://football-data.org you need to get a free access token. For it, just register in the website and they will send it to you via the email you provide them.
+Once you have it, setting it as a variable with the name `FOOTBALL_TOKEN` is enough for this proyect to detect it and load it to make requests to the API.
+
+You can achieve this executing the next command line:
+
+```shell
+$ echo -n "FOOTBALL_TOKEN=YOUR_TOKEN_HERE" > .env
+```
+
+> Remember to change `YOUR_TOKEN_HERE` with your real access token!
+
+Now you can run the app in an Uvicorn server 🦄!
 
 ```shell
 $ uvicorn main:app
@@ -191,7 +203,7 @@ $ pytest
 
 ## Limitations, known issues and things to enhance
 
-- **IMPORTANT!** Free tier http://football-data.org access token is in plain text. Should be retrieved from `.env` but will requiere users cloning this repo to get their own token.
+- ~~**IMPORTANT!** Free tier http://football-data.org access token is in plain text. Should be retrieved from `.env` but will requiere users cloning this repo to get their own token.~~
 
 - The tests use the "production" database, so any data in it would be wiped out once the tests run.
 

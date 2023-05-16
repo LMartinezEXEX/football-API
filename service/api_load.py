@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 import requests
 from service.competition import loaded_competition
 from Database.database import *
@@ -7,8 +9,10 @@ from Database.service.player import save_player
 from Database.service.coach import save_coach
 from typing import List, Dict, Optional
 
+load_dotenv()
+
 BASE_API = 'https://api.football-data.org/v4'
-HEADERS = { 'X-Auth-Token': 'a373dc0b3c2c4fb7b4710ee79a5df629' }
+HEADERS = { 'X-Auth-Token': os.getenv('FOOTBALL_TOKEN') }
 
 def load_league(
     code: str
