@@ -98,7 +98,7 @@ def test_get_default_team_data():
     assert response.status_code == 200
     assert payload['team']['name'] == team_name
     assert len(payload['team']['requested']['players']) >= 0
-    assert payload['team']['requested']['coach'] != {}
+    assert len(payload['team']['requested']['coaches']) == 1
 
 def test_get_players_only_team_data():
     team_name = "Chelsea FC"
@@ -109,19 +109,18 @@ def test_get_players_only_team_data():
     assert response.status_code == 200
     assert payload['team']['name'] == team_name
     assert len(payload['team']['requested']['players']) >= 0
-    assert 'coach' not in payload['team']['requested']
+    assert 'coaches' not in payload['team']['requested']
 
-def test_get_coach_only_team_data():
+def test_get_coaches_only_team_data():
     team_name = "Chelsea FC"
-    detail = "COACH"
+    detail = "COACHES"
     response = client.get("/team/{}?detail={}".format(urllib.parse.quote(team_name), urllib.parse.quote(detail)))
                           
-    print(response.json())
     payload = response.json()
     assert response.status_code == 200
     assert payload['team']['name'] == team_name
     assert 'players' not in payload['team']['requested']
-    assert payload['team']['requested']['coach'] != {}
+    assert len(payload['team']['requested']['coaches']) == 1
 
 def test_get_team_data_of_nonexistent_team():
     team_name = "Not really a team here"
@@ -145,7 +144,7 @@ def test_get_team_data_with_invalid_detail():
     response = client.get("/team/{}?detail={}".format(urllib.parse.quote(team_name), urllib.parse.quote(detail)))
                           
     assert response.status_code == 422
-    assert response.json()['detail'][0]['msg'] == "value is not a valid enumeration member; permitted: 'ALL', 'PLAYERS', 'COACH'"
+    assert response.json()['detail'][0]['msg'] == "value is not a valid enumeration member; permitted: 'ALL', 'PLAYERS', 'COACHES'"
 
 def test_get_team_players():
     team_name = "Chelsea FC"

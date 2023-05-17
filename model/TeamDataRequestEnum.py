@@ -3,4 +3,4 @@ from enum import Enum
 class TeamDataRequest(str, Enum):
     ALL = 'ALL'
     ONLY_PLAYERS = 'PLAYERS'
-    ONLY_COACH = 'COACH'
+    ONLY_COACHES = 'COACHES'

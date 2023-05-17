@@ -11,6 +11,7 @@ def define_entities(
         name     = Required(str)
         areaName = Required(str)
         teams    = Set('Team')
+        coaches  = Set('Coach')
 
 
     class Team(db.Entity):
@@ -20,7 +21,7 @@ def define_entities(
         tla          = Required(str)
         areaName     = Required(str)
         address      = Required(str)
-        coach        = Set('Coach')
+        coaches      = Set('Coach')
         players      = Set('Player')
         competitions = Set('Competition')
 
@@ -35,11 +36,12 @@ def define_entities(
 
 
     class Coach(db.Entity):
-        id          = PrimaryKey(int, auto = True)
-        name        = Optional(str)
-        dateOfBirth = Optional(datetime.date)
-        nationality = Optional(str)
-        team        = Required ('Team')
+        id              = PrimaryKey(int, auto = True)
+        name            = Optional(str)
+        dateOfBirth     = Optional(datetime.date)
+        nationality     = Optional(str)
+        team            = Set ('Team')
+        competitions    = Set('Competition')
 
 
 def setup_db(filepath = None):

@@ -35,6 +35,18 @@ def save_team_in_competition(
     return competition.code
 
 @orm.db_session
+def save_coach_in_competition(
+    competition_code: str,
+    coach_id: int
+    ) -> str:
+
+    competition = db.Competition[competition_code]
+    coach = db.Coach[coach_id]
+    competition.coaches.add(coach)
+
+    return competition.code
+
+@orm.db_session
 def get_players(
     competition_code: str
     ) -> List[Dict[str, str]]:

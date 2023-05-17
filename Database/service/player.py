@@ -13,7 +13,7 @@ def save_player(
     player = db.Player(
         name        = player_data['name'],
         position    = default_if_none(player_data['position'], ''),
-        dateOfBirth = default_if_none(player_data['dateOfBirth'], ''),
+        dateOfBirth = player_data['dateOfBirth'],
         nationality = default_if_none(player_data['nationality'], ''),
         team = team
     )

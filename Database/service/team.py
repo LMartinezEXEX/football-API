@@ -36,6 +36,20 @@ def team_in_database(
     return db.Team.get(name=team_name) is not None
 
 @orm.db_session
+def coach_in_team(
+    team_id: int,
+    coach_data: Dict[str, str]
+    ) -> bool:
+
+    for coach in list(db.Coach.select(lambda c: team_id in c.team.id)):
+        if  coach.name == coach_data['name']  and \
+            coach.dateOfBirth == coach_data['dateOfBirth'] and \
+            coach.nationality == coach_data['nationality']:
+            return True
+
+    return False
+
+@orm.db_session
 def get_team_id(
     team_name: str
     ) -> int:
@@ -73,7 +87,7 @@ def register_coach_in_team(
 
     team = db.Team[team_id]
     coach = db.Coach[coach_id]
-    team.coach = coach
+    team.coaches.add(coach)
     return team.id
 
 @orm.db_session
@@ -112,13 +126,18 @@ def get_team_players(
     return players
 
 @orm.db_session
-def get_team_coach(
+def get_all_team_coaches(
     team_name: str
-    ) -> Dict[str, str]:
+    ) -> List[Dict[str, str]]:
+
     team_id = get_team_id(team_name)
-    coach = db.Coach.get(team = team_id)
-    return {
-        "name": coach.name,
-        "dateOfBirth": coach.dateOfBirth,
-        "nationality": coach.nationality
-    }
+    coaches = []
+    for coach in list(db.Coach.select(lambda c: team_id in c.team.id)):
+        coach_data = {
+            "name": coach.name,
+            "dateOfBirth": coach.dateOfBirth,
+            "nationality": coach.nationality
+        }
+        coaches.append(coach_data)
+
+    return [dict(s) for s in set(frozenset(d.items()) for d in coaches)]

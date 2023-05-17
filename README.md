@@ -120,7 +120,7 @@ Get team data and, optionally, players **and** coach data of the team specified 
     - `detail` (_Optional_): value to decide what other team data to retrieve. Possible values:
         - `'ALL'`: Retrieves players and coach data.
         - `'PLAYERS'`: Retrieves only players data.
-        - `'COACH'`: Retrieves only coach data.
+        - `'COACHES'`: Retrieves only coach data.
     **Validated** to be only one of the values described.
 
 > Example url: http://127.0.0.1:8000/team/Arsenal%20FC?detail=PLAYERS
@@ -138,11 +138,13 @@ Get team data and, optionally, players **and** coach data of the team specified 
             "players": [ 
                 ... 
             ],
-            "coach": {
-                "name": str,
-                "dateOfBirth": str,
-                "nationality": str,
-            }
+            "coaches": [
+                {
+                    "name": str,
+                    "dateOfBirth": str,
+                    "nationality": str,
+                }
+            ] 
         }
     }
 }
@@ -191,7 +193,7 @@ Same functionality than the last endpoint described with `details` query paramet
 
 -   One of the biggest differences in functionality comes from these last two endpoints. As requested, if the player list of a team is empty, the coach data should be retrieved. 
 
-    Due to the lack of additional information and trying to model this application as close to the real world as possible, getting the coach data when asked for players, even though its emtpy, seems wrong (again from modeling a real world scenario). This is why, to fulfill the endpoint requierment, the `'ALL'` value to `detail` returns not only the players, even if its empty, but also the coach data; but this approach is flexible, because you could add more value options to `detail` to filter the requested data. At the moment only `PLAYERS'` and `COACH'` seem natural to me.
+    Due to the lack of additional information and trying to model this application as close to the real world as possible, getting the coach data when asked for players, even though its emtpy, seems wrong (again from modeling a real world scenario). This is why, to fulfill the endpoint requierment, the `'ALL'` value to `detail` returns not only the players, even if its empty, but also the coach data; but this approach is flexible, because you could add more value options to `detail` to filter the requested data. At the moment only `PLAYERS'` and `COACHES'` seem natural to me.
 
 ## Tests
 
@@ -209,4 +211,4 @@ $ pytest
 
 - ~~The `dateOfBirth` field should be cast to a `date` object to get more functionality out of it (e.g. filtering players by age).~~
 
-- Revise the coach relationship with the team and the current competition. Could happens that if a team is loaded with the competition A with coach 'Roger', if competition B is loaded with a different coach the database dont gets the update.
+- ~~Revise the coach relationship with the team and the current competition. Could happens that if a team is loaded with the competition A with coach 'Roger', if competition B is loaded with a different coach the database dont gets the update.~~

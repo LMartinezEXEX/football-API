@@ -1,4 +1,4 @@
-from Database.service.team import team_in_database, get_team_by_name, get_team_players, get_team_coach
+from Database.service.team import team_in_database, get_team_by_name, get_team_players, get_all_team_coaches
 from model.TeamDataRequestEnum import TeamDataRequest
 from typing import Dict
 
@@ -22,12 +22,12 @@ def retrieve_team_members(
     data = {}
     if which is TeamDataRequest.ALL:
         data['players'] = get_team_players(team_name)
-        data['coach'] = get_team_coach(team_name)
+        data['coaches'] = get_all_team_coaches(team_name)
 
     elif which is TeamDataRequest.ONLY_PLAYERS:
         data['players'] = get_team_players(team_name)
         
-    elif which is TeamDataRequest.ONLY_COACH:
-        data['coach'] = get_team_coach(team_name)
+    elif which is TeamDataRequest.ONLY_COACHES:
+        data['coaches'] = get_all_team_coaches(team_name)
 
     return data
